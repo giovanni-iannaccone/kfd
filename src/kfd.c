@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "../include/jwt.h"
 #include "../include/random.h"
@@ -8,7 +9,7 @@
 
 #define VERSION "1.0.0"
 
-static void help(const char program_name[]) {
+static const void help(const char program_name[]) {
     printf("%s v %s\n", program_name, VERSION);
     printf("-h | --help\t\tshow this message\n\n");
 
@@ -21,7 +22,11 @@ static void help(const char program_name[]) {
     printf("-n {len} | --number {len}\tget a random number of len length\n\n");
 }
 
-static void parse_flags(const int argc, const char *argv[]) {
+static const void initialize_randomness() {
+    srand(time(NULL));
+}
+
+static const void parse_flags(const int argc, const char *argv[]) {
     char *str;
 
     for (unsigned int i = 1; i < argc; i++ ) {
@@ -58,6 +63,8 @@ static void parse_flags(const int argc, const char *argv[]) {
 }
 
 int main(const int argc, const char *argv[]) {
+    initialize_randomness();
+
     if (argc > 1)
         parse_flags(argc, argv);
     else 
