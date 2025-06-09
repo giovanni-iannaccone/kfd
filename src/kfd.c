@@ -9,6 +9,10 @@
 
 #define VERSION "1.0.0"
 
+static inline int check_option(const char *argument, const char *short_form, const char *long_form) {
+    return strcmp(argument, short_form) == 0 || strcmp(argument, long_form) == 0;
+}
+
 static const void help(const char program_name[]) {
     printf("%s v %s\n", program_name, VERSION);
     printf("-h | --help\t\tshow this message\n\n");
@@ -30,25 +34,25 @@ static const void parse_flags(const int argc, const char *argv[]) {
     char *str;
 
     for (unsigned int i = 1; i < argc; i++ ) {
-        if (strcmp(argv[i], "-j") == 0 || strcmp(argv[i], "--jwt") == 0 ) {
+        if (check_option(argv[i], "-j", "--jwt")) {
             str = generate_jwt();
 
-        } else if (strcmp(argv[i], "-u") == 0 || strcmp(argv[i], "--uuid") == 0 ) {
+        } else if (check_option(argv[i], "-u", "--uuid")) {
             str = generate_uuid();
 
-        } else if ((strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--alphanum") == 0) && i + 1 < argc) {
+        } else if (check_option(argv[i], "-a", "--alphanum") && i + 1 < argc) {
             str = generate_alphanum(atoi(argv[i + 1]));
             i++;
         
-        } else if ((strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--char") == 0) && i + 1 < argc) {
+        } else if (check_option(argv[i], "-c", "--char") && i + 1 < argc) {
             str = generate_char(atoi(argv[i + 1]));
             i++;
         
-        } else if ((strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "--hex") == 0) && i + 1 < argc) {
+        } else if (check_option(argv[i], "-x", "--hex") && i + 1 < argc) {
             str = generate_hex(atoi(argv[i + 1]));
             i++;
 
-        } else if ((strcmp(argv[i], "-n") == 0 || strcmp(argv[i], "--number") == 0) && i + 1 < argc) {
+        } else if (check_option(argv[i], "-n", "--number") && i + 1 < argc) {
             str = generate_number(atoi(argv[i + 1]));
             i++;
         
