@@ -21,7 +21,7 @@ static const void help(const char program_name[]) {
     printf("-u  | --uuid\t\tgenerate version 4 uuid\n\n");
 
     printf("-a {len} | --alphanum {len}\tget a random string of len length\n");
-    printf("-c {len} | --char {len}\t\tget a random letters-only string of len lenght\n");
+    printf("-c {len} | --char {len}\t\tget a random letters-only string of len length\n");
     printf("-x {len} | --hex {len}\t\tget a random hex of len length\n");
     printf("-n {len} | --number {len}\tget a random number of len length\n\n");
 }
